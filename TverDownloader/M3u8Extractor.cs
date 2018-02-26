@@ -88,7 +88,7 @@ namespace TverDownloader
 
         private IList GetNetworkData()
         {
-            const int SLEEP = 1200;
+            const int SLEEP = 1500;
             object networkData = null;
 
             if (IsUrlValid())
