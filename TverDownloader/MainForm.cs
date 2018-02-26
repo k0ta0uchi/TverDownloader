@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -15,9 +10,11 @@ namespace TverDownloader
     public partial class MainForm : Form
     {
         private ClipboardViewer viewer;
-        private M3u8Extractor ext;
+        private M3u8Extractor extractor;
         private Settings set;
         private const string FOD = "フジテレビ";
+        private const string RECORD = "⏺";
+        private const string STOP = "⏹";
 
         public MainForm()
         {
@@ -37,19 +34,20 @@ namespace TverDownloader
 
         private async void OnClipBoardChanged(object sender, ClipboardEventArgs e)
         {
-            ext = new M3u8Extractor(e.Text);
+            extractor = new M3u8Extractor(e.Text);
 
-            if (ext.IsUrlValid())
+            if (extractor.IsUrlValid())
             {
                 Informations info = null;
+
                 await Task.Run(() =>
                 {
-                    info = ext.GetInformations();
+                    info = extractor.GetInformations();
 
                     if (info != null)
                     {
                         bool isFOD = info.department.Equals(FOD) ? true : false;
-                        info.url = ext.GetM3u8Url(isFOD);
+                        info.url = extractor.GetM3u8Url(isFOD);
                     }
                 });
 
@@ -65,8 +63,8 @@ namespace TverDownloader
                 }
             }
 
-            ext.DestroyDriver();
-            ext = null;
+            extractor.DestroyDriver();
+            extractor = null;
         }
 
         private void DownloadList_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -85,17 +83,17 @@ namespace TverDownloader
                 {
                     Directory.CreateDirectory(dramaPath);
                 }
-                target.SubItems[0].Text = "⏺";
+                target.SubItems[0].Text = RECORD;
                 target.SubItems[0].ForeColor = Color.Red;
 
                 await Task.Run(() =>
-               {
+                {
                    UseFfmpeg(target.SubItems[5].Text);
 
                    File.Move("video.mp4", videoPath);
-               });
+                });
                 
-                target.SubItems[0].Text = "⏹";
+                target.SubItems[0].Text = STOP;
                 target.SubItems[0].ForeColor = Color.Black;
             } else
             {    
@@ -114,7 +112,8 @@ namespace TverDownloader
             psInfo.Arguments = "-headers \"origin: https://tver.jp\" " +
                                "-headers \"accept-encoding: gzip, deflate, br\" " +
                                "-headers \"accept-language: ja,en-US;q=0.8,en;q=0.6\" " +
-                               "-user_agent \"Mozilla / 5.0(Macintosh; Intel Mac OS X 10_12_6) AppleWebKit / 537.36(KHTML, like Gecko) Chrome / 61.0.3163.100 Safari / 537.36\" " +
+                               "-user_agent \"Mozilla / 5.0(Macintosh; Intel Mac OS X 10_12_6) AppleWebKit / " +
+                               "537.36(KHTML, like Gecko) Chrome / 61.0.3163.100 Safari / 537.36\" " +
                                "-i \"" + url + "\" " +
                                "-codec copy " +
                                "-bsf:a aac_adtstoasc " +
@@ -133,8 +132,8 @@ namespace TverDownloader
 
         private void Main_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            ext.DestroyDriver();
-            ext = null;
+            extractor.DestroyDriver();
+            extractor = null;
         }
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium;
 using System.Collections;
@@ -41,7 +37,6 @@ namespace TverDownloader
 
         public void DestroyDriver()
         {
-
             if (driver != null)
                 driver.Quit();
             driver = null;
@@ -101,7 +96,10 @@ namespace TverDownloader
 
                 System.Threading.Thread.Sleep(SLEEP);
 
-                string script = "var performance = window.performance || window.mozPerformance || window.msPerformance || window.webkitPerformance || {}; var network = performance.getEntries() || {}; return network;";
+                string script = "var performance = window.performance ||" +
+                                "window.mozPerformance || window.msPerformance ||" +
+                                "window.webkitPerformance || {}; " +
+                                "var network = performance.getEntries() || {}; return network;";
                 networkData = ((IJavaScriptExecutor)driver).ExecuteScript(script);
             }
 
@@ -136,8 +134,9 @@ namespace TverDownloader
 
         private string GetFODM3u8Url()
         {
-            
             string url = "";
+            bool isIpad = true;
+
             if (driver != null)
             {
                 try
@@ -148,7 +147,7 @@ namespace TverDownloader
                 {
                     Console.WriteLine(e.ToString());
                 }
-                GetDriver(true);
+                GetDriver(isIpad);
 
                 driver.Url = extractUrl;
                 driver.Navigate();
