@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.DownloadList = new ExtendedControls.ListViewEx();
+            this.DownloadList = new ListViewEx();
             this.Status = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Department = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Date = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -135,7 +135,7 @@
         }
 
         #endregion
-        private ExtendedControls.ListViewEx DownloadList;
+        private ListViewEx DownloadList;
         private System.Windows.Forms.ColumnHeader Status;
         private System.Windows.Forms.ColumnHeader Title;
         private System.Windows.Forms.ColumnHeader SubTitle;
