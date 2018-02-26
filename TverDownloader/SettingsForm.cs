@@ -35,5 +35,15 @@ namespace TverDownloader
         {
             set.path = path.Text;
         }
+
+        private void browse_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            if (fbd.ShowDialog() ==DialogResult.OK)
+            {
+                path.Text = fbd.SelectedPath;
+                set.path = fbd.SelectedPath;
+            }
+        }
     }
 }

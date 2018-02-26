@@ -10,30 +10,6 @@ using System.Text.RegularExpressions;
 
 namespace TverDownloader
 {
-    class Informations
-    {
-        public string department { get; set; }
-        public string date { get; set; }
-        public string title { get; set; }
-        public string subtitle { get; set; }
-        public string url { get; set; }
-
-        public Informations(string _department = "", string _date = "", string _title = "", string _subtitle = "", string _url = "")
-        {
-            department = _department;
-            date = _date;
-            title = _title;
-            subtitle = _subtitle;
-            url = _url;
-        }
-
-        public string[] ToArray()
-        {
-            string[] info = { "▶", department, date, title, subtitle, url };
-            return info;
-        }
-    }
-
     class M3u8Extractor
     {
         private string extractUrl;
@@ -89,14 +65,17 @@ namespace TverDownloader
                 {
                     string _temp = driver.FindElementByCssSelector(".title span.tv").Text;
                     info.department = Regex.Match(_temp, @"^(.*)?　").Groups[1].ToString();
-                    
-                    info.date = Regex.Match(_temp, @"\d.*$").ToString();
+                    if (info.department == "")
+                    {
+                        info.department = _temp;
+                        info.date = driver.FindElementByCssSelector(".title span.red").Text;
+                    } else
+                    {
+                        info.date = Regex.Match(_temp, @"\d.*$").ToString();
+                    }
 
-                    var _title = driver.FindElementByCssSelector(".title h1");
-                    info.title = _title.Text;
-
-                    var _subtitle = driver.FindElementByCssSelector(".title p span.summary");
-                    info.subtitle = _subtitle.Text;
+                    info.title = driver.FindElementByCssSelector(".title h1").Text;
+                    info.subtitle = driver.FindElementByCssSelector(".title p span.summary").Text;
                 } catch (NoSuchElementException e)
                 {
                     Console.WriteLine(e.Message);
@@ -109,7 +88,7 @@ namespace TverDownloader
 
         private IList GetNetworkData()
         {
-            const int SLEEP = 1000;
+            const int SLEEP = 1200;
             object networkData = null;
 
             if (IsUrlValid())

@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.DownloadList = new System.Windows.Forms.ListView();
+            this.DownloadList = new ExtendedControls.ListViewEx();
             this.Status = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Department = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Date = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -50,37 +50,41 @@
             this.Title,
             this.SubTitle,
             this.URL});
-            this.DownloadList.Location = new System.Drawing.Point(3, 28);
+            this.DownloadList.FullRowSelect = true;
+            this.DownloadList.GridLines = true;
+            this.DownloadList.Location = new System.Drawing.Point(2, 24);
             this.DownloadList.Name = "DownloadList";
-            this.DownloadList.Size = new System.Drawing.Size(812, 375);
+            this.DownloadList.RowHeight = 32;
+            this.DownloadList.Size = new System.Drawing.Size(956, 400);
             this.DownloadList.TabIndex = 2;
             this.DownloadList.UseCompatibleStateImageBehavior = false;
             this.DownloadList.View = System.Windows.Forms.View.Details;
-            this.DownloadList.SelectedIndexChanged += new System.EventHandler(this.DownloadList_SelectedIndexChanged);
+            this.DownloadList.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.DownloadList_MouseDoubleClick);
             // 
             // Status
             // 
             this.Status.Text = "";
-            this.Status.Width = 20;
+            this.Status.Width = 40;
             // 
             // Department
             // 
             this.Department.Text = "Department";
-            this.Department.Width = 100;
+            this.Department.Width = 80;
             // 
             // Date
             // 
             this.Date.Text = "Date";
+            this.Date.Width = 100;
             // 
             // Title
             // 
             this.Title.Text = "Title";
-            this.Title.Width = 120;
+            this.Title.Width = 160;
             // 
             // SubTitle
             // 
             this.SubTitle.Text = "SubTitle";
-            this.SubTitle.Width = 120;
+            this.SubTitle.Width = 240;
             // 
             // URL
             // 
@@ -93,7 +97,7 @@
             this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(818, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(960, 24);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -108,19 +112,19 @@
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.settingsToolStripMenuItem.Text = "Settings";
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
-            // Main
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(818, 407);
+            this.ClientSize = new System.Drawing.Size(960, 425);
             this.Controls.Add(this.DownloadList);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "Main";
+            this.Name = "MainForm";
             this.Text = "TverDownloader";
             this.Load += new System.EventHandler(this.Main_Load);
             this.menuStrip1.ResumeLayout(false);
@@ -131,7 +135,7 @@
         }
 
         #endregion
-        private System.Windows.Forms.ListView DownloadList;
+        private ExtendedControls.ListViewEx DownloadList;
         private System.Windows.Forms.ColumnHeader Status;
         private System.Windows.Forms.ColumnHeader Title;
         private System.Windows.Forms.ColumnHeader SubTitle;

@@ -51,6 +51,7 @@
             this.browse.TabIndex = 1;
             this.browse.Text = "...";
             this.browse.UseVisualStyleBackColor = true;
+            this.browse.Click += new System.EventHandler(this.browse_Click);
             // 
             // pathLabel
             // 

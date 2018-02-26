@@ -30,6 +30,7 @@ namespace TverDownloader
             }
             catch (FileNotFoundException e)
             {
+                Console.WriteLine(e.Message);
                 _set = new Settings();
             }
             path = _set.path;
