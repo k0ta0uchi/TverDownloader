@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsForm));
             this.path = new System.Windows.Forms.TextBox();
             this.browse = new System.Windows.Forms.Button();
             this.pathLabel = new System.Windows.Forms.Label();
@@ -92,6 +93,7 @@
             this.Controls.Add(this.pathLabel);
             this.Controls.Add(this.browse);
             this.Controls.Add(this.path);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SettingsForm";
             this.Text = "Settings";
             this.ResumeLayout(false);
