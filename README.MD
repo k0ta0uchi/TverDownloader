@@ -1,7 +1,7 @@
 # TverDownloader
 A download helper for https://tver.jp/.
 
-![tverdownloader_2018-02-25_23-16-28](https://user-images.githubusercontent.com/1085968/36662346-7325da20-1b21-11e8-8684-29e672ff0232.png)
+![tverdownloader_2018-02-26_18-03-37](https://user-images.githubusercontent.com/1085968/36662500-f315699e-1b21-11e8-88f7-5c11ae9ac0a0.png)
 
 
 ## Requirement
