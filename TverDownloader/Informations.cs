@@ -13,6 +13,7 @@ namespace TverDownloader
         public string title { get; set; }
         public string subtitle { get; set; }
         public string url { get; set; }
+        public const string PAUSE = "⏸";
 
         public Informations(string _department = "", string _date = "", string _title = "", string _subtitle = "", string _url = "")
         {
@@ -25,7 +26,7 @@ namespace TverDownloader
 
         public string[] ToArray()
         {
-            string[] info = { "⏸", department, date, title, subtitle, url };
+            string[] info = { PAUSE, department, date, title, subtitle, url };
             return info;
         }
     }

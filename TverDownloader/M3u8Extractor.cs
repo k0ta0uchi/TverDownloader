@@ -152,15 +152,17 @@ namespace TverDownloader
                 driver.Url = extractUrl;
                 driver.Navigate();
 
-                driver.Url = driver.FindElementByCssSelector(".vod-section .linkbtn > a").GetAttribute("href");
-                driver.Navigate();
+                try
+                {
+                    driver.Url = driver.FindElementByCssSelector(".playbtn > a").GetAttribute("href");
+                    driver.Navigate();
 
-                var nextUrl = driver.FindElementByCssSelector("#list_episode div.listBox button.btn-free");
-                driver.Url = Regex.Match(nextUrl.GetAttribute("onclick"), @"'(.*)?'").Groups[1].ToString();
-                driver.Navigate();
-
-                url = driver.FindElementByCssSelector("#ContentMain_lnkView1").GetAttribute("href");
-                url = Regex.Match(url, @"http.*?m3u8").ToString();
+                    url = driver.FindElementByCssSelector("#ContentMain_lnkView1").GetAttribute("href");
+                    url = Regex.Match(url, @"http.*?m3u8").ToString();
+                } catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
             }
 
             DestroyDriver();
